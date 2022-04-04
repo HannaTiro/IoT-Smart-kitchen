@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Smart kitchen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <script  type="text/javascript" src="smartkitchen.js"></script>   -->
+    <link rel="stylesheet" type="text/css" media="screen" href="smartkitchen.css"/>
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.2.2/firebase.min.js"></script>
+
+    
+    
+  
+</head>
+
+<body>
+   
+    <div class="BIJELO">
+    <div>
+        <img id="naslovnaSlika" src="naslovna2.png" alt="nema naslovne slike">
+    </div>
+    <br>
+    <div class="sastojciTabela">
+    <table>
+        <tr id="slova">
+            <td>Sastojak 1</td>
+            <td>Sastojak 2</td>
+            <td>Sastojak 3</td>
+            <td>Sastojak 4</td>
+            <td>Sastojak 5</td>
+
+        </tr>
+        <!--SLIKE SASTOJAKA-->
+        <tr>
+            <td><img src="posuda.gif" alt="sastojak1" width="200px"></td>
+            <td><img src="posuda.gif" alt="sastojak2" width="200px"></td>
+            <td><img src="posuda.gif" alt="sastojak3" width="200px"></td>
+            <td><img src="posuda.gif" alt="sastojak4" width="200px"></td>
+            <td><img src="posuda.gif" alt="sastojak5" width="200px"></td>
+
+        </tr>
+        <!--buttoni za pokretanje senzora-->
+        <tr>
+            <td>
+                    <div class= "toggle-btn" id="unact">
+                        <div class= "inner-circle">
+            
+                        </div>
+                    </div>
+                    <div class= "toggle-btn active" id="act" >
+                        <div class= "inner-circle">
+            
+                        </div>
+                    </div>
+                
+        
+            </td>
+            <td>
+                <div class= "toggle-btn1" id="unact1">
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+                <div class= "toggle-btn1 active" id="act1" >
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class= "toggle-btn2" id="unact2">
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+                <div class= "toggle-btn2 active" id="act2" >
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class= "toggle-btn3" id="unact3">
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+                <div class= "toggle-btn3 active" id="act3" >
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class= "toggle-btn4" id="unact4">
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+                <div class= "toggle-btn4 active" id="act4" >
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+            </td>
+
+        </tr>
+    </table>
+</div>
+</div>
+<div class="CRNO">
+    <br>
+    <br>
+<div id="VelikaPosuda">
+   
+    <div id="p5">
+
+    </div>
+    <div id="p4">
+
+    </div>
+    <div id="p3">
+
+    </div>
+    <div id="p2">
+
+    </div>
+    <div id="p1">
+
+    </div>
+
+</div>
+<label class="slova2">Posuda sa sastojcima</label>
+
+<div id="GasenjeSenzora" class="slova2">
+ 
+    <label> Pražnjenje posude</label>
+    
+ <button type="button"  class="btn btn-danger">Isprazni posude</button>
+
+ 
+   
+</div>
+    <!--PEKARA TABELA-->
+   <div class="pekaraTabela">
+    <table>
+        
+        <tr style="height:10px">
+            <!-- <td style="background-color: burlywood;"> -->
+            <div id="pekara_otvorena">
+                <img  src="pekara_upaljena.jpg" alt="otvorena pekara" width="400px" height="400px">
+            </div>
+    
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class= "toggle-btn5" id="unact5">
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+                <div class= "toggle-btn5 active" id="act5" >
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+  
+            </td>
+        </tr>
+    </table>
+ 
+
+   </div>
+</div>
+
+   <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBtcWKWhY1d55DsqQlovT1Yx6EQnr1HCdY",
+      authDomain: "iotbaza-e19e2.firebaseapp.com",
+      databaseURL: "https://iotbaza-e19e2-default-rtdb.firebaseio.com",
+      projectId: "iotbaza-e19e2",
+      storageBucket: "iotbaza-e19e2.appspot.com",
+      messagingSenderId: "18215365651",
+      appId: "1:18215365651:web:bfef3bbef23ad1b7eb23e6"
+    };
+  
+     // Initialize Firebase
+   firebase.initializeApp(firebaseConfig);
+   var brojac=0;
+   $(document).ready(function(){
+	var database = firebase.database();
+	var Posuda1;
+	var Posuda2;
+	var Posuda3;
+	var Posuda4;
+	var Posuda5;
+	var Pekara;
+    var PosudaPrazna;
+	database.ref().on("value", function(snap){
+		Posuda1 = snap.val().Posuda1;
+		Posuda2 = snap.val().Posuda2;
+		Posuda3 = snap.val().Posuda3;
+		Posuda4 = snap.val().Posuda4;
+		Posuda5 = snap.val().Posuda5;
+		Pekara = snap.val().Pekara;
+        PosudaPrazna=snap.val().PosudaPrazna;
+
+		if(Posuda1 == "1"){
+			document.getElementById("unact").style.display = "none";
+			document.getElementById("act").style.display = "block";
+            var brojacInterni=1;
+            PunjenjePosude(brojacInterni);
+		} else {
+			document.getElementById("unact").style.display = "block";
+			document.getElementById("act").style.display = "none";
+    
+		}
+		if(Posuda2 == "1"){
+			document.getElementById("unact1").style.display = "none";
+			document.getElementById("act1").style.display = "block";
+            brojacInterni=2;
+            PunjenjePosude(brojacInterni);
+		} else {
+			document.getElementById("unact1").style.display = "block";
+			document.getElementById("act1").style.display = "none";
+		}
+		if(Posuda3 == "1"){
+			document.getElementById("unact2").style.display = "none";
+			document.getElementById("act2").style.display = "block";
+            brojacInterni=3;
+            PunjenjePosude(brojacInterni);
+		} else {
+			document.getElementById("unact2").style.display = "block";
+			document.getElementById("act2").style.display = "none";
+		}
+		if(Posuda4 == "1"){
+			document.getElementById("unact3").style.display = "none";
+			document.getElementById("act3").style.display = "block";
+            brojacInterni=4;
+            PunjenjePosude(brojacInterni);
+		} else {
+			document.getElementById("unact3").style.display = "block";
+			document.getElementById("act3").style.display = "none";
+		}
+        if(Posuda5 == "1"){
+			document.getElementById("unact4").style.display = "none";
+			document.getElementById("act4").style.display = "block";
+            brojacInterni=5;
+            PunjenjePosude(brojacInterni);
+		} else {
+			document.getElementById("unact4").style.display = "block";
+			document.getElementById("act4").style.display = "none";
+		}
+        if(Pekara == "1"){
+			document.getElementById("unact5").style.display = "none";
+			document.getElementById("act5").style.display = "block";
+		} else {
+			document.getElementById("unact5").style.display = "block";
+			document.getElementById("act5").style.display = "none";
+		}
+     /*    if(PosudaPrazna == "1"){
+			document.getElementById("unact6").style.display = "none";
+			document.getElementById("act6").style.display = "block";
+		} else {
+			document.getElementById("unact6").style.display = "block";
+			document.getElementById("act6").style.display = "none";
+		} */
+       
+	});
+
+	$(".toggle-btn").click(function(){
+		var firebaseRef = firebase.database().ref().child("Posuda1");
+		if(Posuda1 == "0"){
+			firebaseRef.set("1");
+			Posuda1 = "1";
+            brojac++;
+            PunjenjePosude(brojac);
+		} else {
+			
+           alert("Sastojak možete ukloniti samo putem buttona za pražnjenje posude");
+		}
+	})
+	$(".toggle-btn1").click(function(){
+		var firebaseRef = firebase.database().ref().child("Posuda2");
+		if(Posuda2 == "0"){
+			firebaseRef.set("1");
+			Posuda2 = "1";
+            brojac++;
+            PunjenjePosude(brojac);
+		} else {
+	
+            alert("Sastojak možete ukloniti samo putem buttona za pražnjenje posude");
+		}
+	})
+	$(".toggle-btn2").click(function(){
+		var firebaseRef = firebase.database().ref().child("Posuda3");
+		if(Posuda3 == "0"){
+			firebaseRef.set("1");
+			Posuda3 = "1";
+            brojac++;
+            PunjenjePosude(brojac);
+		} else {
+		
+        alert("Sastojak možete ukloniti samo putem buttona za pražnjenje posude");
+		}
+	})
+	$(".toggle-btn3").click(function(){
+		var firebaseRef = firebase.database().ref().child("Posuda4");
+		if(Posuda4 == "0"){
+			firebaseRef.set("1");
+			Posuda4 = "1";
+            brojac++;
+            PunjenjePosude(brojac);
+		} else {
+			alert("Sastojak možete ukloniti samo putem buttona za pražnjenje posude");
+		}
+	})
+    $(".toggle-btn4").click(function(){
+		var firebaseRef = firebase.database().ref().child("Posuda5");
+		if(Posuda5 == "0"){
+			firebaseRef.set("1");
+			Posuda5 = "1";
+            brojac++;
+            PunjenjePosude(brojac);
+		} else {
+			alert("Sastojak možete ukloniti samo putem buttona za pražnjenje posude");
+		}
+	})
+    $(".toggle-btn5").click(function(){
+		var firebaseRef = firebase.database().ref().child("Pekara");
+		if(Pekara == "0"){
+			firebaseRef.set("1");
+			Pekara = "1";
+            alert("Pekara je upaljena");
+		} else {
+			firebaseRef.set("0");
+			Pekara = "0";
+            alert("Pekara je izgašena");
+		}
+	})
+    $(".btn-danger").click(function(){
+		var firebaseRef1 = firebase.database().ref().child("Posuda1");
+		var firebaseRef2 = firebase.database().ref().child("Posuda2");
+		var firebaseRef3 = firebase.database().ref().child("Posuda3");
+		var firebaseRef4 = firebase.database().ref().child("Posuda4");
+		var firebaseRef5 = firebase.database().ref().child("Posuda5");
+		var firebaseRef7 = firebase.database().ref().child("PosudaPrazna");
+        if(Posuda1 == "1"){
+			firebaseRef1.set("0");
+			Posuda1 = "0";
+           // brojac=0;
+            alert("Sastojak 1 možete ponovno pripremiti");
+		} if(Posuda2 == "1") {
+			firebaseRef2.set("0");
+			Posuda2 = "0";
+           // brojac=0;
+            alert("Sastojak 2 možete ponovno pripremiti");
+		}if(Posuda3 == "1") {
+			firebaseRef3.set("0");
+			Posuda3 = "0";
+           // brojac=0;
+            alert("Sastojak 3 možete ponovno pripremiti");
+		}if(Posuda4 == "1") {
+			firebaseRef4.set("0");
+			Posuda2 = "0";
+           // brojac=0;
+            alert("Sastojak 4 možete ponovno pripremiti");
+		}if(Posuda5 == "1") {
+			firebaseRef5.set("0");
+			Posuda5= "0";
+           // brojac=0;
+            alert("Sastojak 5 možete ponovno pripremiti");
+		}if(PosudaPrazna == "1") {
+			firebaseRef7.set("1");
+			PosudaPrazna = "1";
+            brojac=0;
+            PunjenjePosude(brojac);
+            alert("Posuda je prazna i spremna za novu upotrebu");
+		}
+       
+	})
+    function PunjenjePosude(brojac)
+    {
+        
+        if(brojac==0)
+        {
+            document.getElementById("p1").style.background="whitesmoke";
+            document.getElementById("p2").style.background="whitesmoke";
+            document.getElementById("p3").style.background="whitesmoke";
+            document.getElementById("p4").style.background="whitesmoke";
+            document.getElementById("p5").style.background="whitesmoke";
+
+        }
+        if(brojac==1)
+        {
+            document.getElementById("p1").style.background="red";
+        }
+        if(brojac==2)
+        {
+            document.getElementById("p2").style.background="red";
+        }
+        if(brojac==3)
+        {
+            document.getElementById("p3").style.background="red";
+        }
+        if(brojac==4)
+        {
+            document.getElementById("p4").style.background="red";
+        }
+        if(brojac==5)
+        {
+            document.getElementById("p5").style.background="red";
+        }
+
+    }
+});
+
+   
+   
+   
+    
+
+    
+  </script>
+  
+  
+
+</body>
+
+
+</html>
